@@ -1,25 +1,12 @@
 import Foundation
 
-class Gigasecond {
-  let from: Date
-  let dateFormat: DateFormatter
-  let interval: TimeInterval = TimeInterval(1000000000)
-  
-  var description: String {
-    get {
-      return dateFormat.string(from: Date(timeInterval: interval, since: from))
-    }
-  }
+struct Gigasecond {
+  let description: String
   
   init?(from: String) {
-    dateFormat = DateFormatter()
-    dateFormat.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-    let date: Date? = dateFormat.date(from: from)
-    if let date = date {
-      self.from = date
-    }
-    else {
-      return nil
-    }
+    let formatter = DateFormatter()    
+    formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"    
+    description = formatter.string(from: Date(timeInterval: 1000000000, since: formatter.date(from: from)!))
   }
+  
 }
